@@ -1,5 +1,5 @@
 
-    
+
 var hiiDirectives = angular.module('hiiDirectives', []);
 
 hiiDirectives.directive('dhisHeader', function() {
@@ -7,9 +7,9 @@ hiiDirectives.directive('dhisHeader', function() {
         restrict: 'E',
         templateUrl: 'views/directives/dhis-header.html',
         controller: function() {
-            this.home = function(){        
+            this.home = function(){
                 window.location = '/dhis-web-dashboard-integration/index.action';
-            };   
+            };
         },
         controllerAs: 'headerCtrl'
     };
@@ -99,5 +99,3 @@ hiiDirectives.directive('repeatDone', function() {
         }
     }
 });
-
-
