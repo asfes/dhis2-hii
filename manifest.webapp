@@ -1,5 +1,5 @@
 {
-    "version": "1.0",
+    "version": "1.5",
     "name": "Health Infrastructures Inventory",
     "description": "The app for reporting the state of health infrastructures.",
     "launch_path": "/index.html",

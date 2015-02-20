@@ -7,7 +7,7 @@
   <table class="listTable table table-striped table-hover" style='width:90%' ng-hide = "loadingList">
     <thead>
       <tr>
-        <th>{{complexList.tableHeaders[5].column}}
+        <th>{{complexList.tableHeaders[5].column|nohii}}
           <span class="glyphicon glyphicon-sort-by-alphabet" aria-hidden="true" style='padding-left:10px' ng-hide='orderInverse' ng-click='listCtrl.changeOrder(true)'></span>
           <span class ='glyphicon glyphicon-sort-by-alphabet-alt' ng-show='orderInverse' style='padding-left:10px' ng-click='listCtrl.changeOrder(false)'> </span>
         </th>

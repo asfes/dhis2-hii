@@ -35,7 +35,7 @@
 							<form novalidate>
 						   		<tbody>
 						        	<tr ng-repeat = "i in [5,6,7,8,9,10,11,12,13]">
-								    	<td class= "leftTableContent"> {{buildings.tableHeaders[i].column}} </td> <td ng-hide='buildingsCtrl.isEditing()'> {{buildings.tableContents[buildingSelected][i]}}</td> <td ng-show = 'buildingsCtrl.isEditing()'> <input ng-hide ='i==7||i==8||i==11||i==13' class='boxForm' type ='text' ng-model="editForm[i]"> </input>
+								    	<td class= "leftTableContent"> {{buildings.tableHeaders[i].column|nohii}} </td> <td ng-hide='buildingsCtrl.isEditing()'> {{buildings.tableContents[buildingSelected][i]}}</td> <td ng-show = 'buildingsCtrl.isEditing()'> <input ng-hide ='i==7||i==8||i==11||i==13' class='boxForm' type ='text' ng-model="editForm[i]"> </input>
 								    	<select ng-show="i==8||i==7"  class='boxForm' ng-model="editForm[i]"><option value ='true'>{{'yes'| translate}}</option> <option value='false'>{{'no'| translate}}</option></select>
 								    	<select ng-show="i==11"  class='boxForm' ng-model="editForm[i]" ><option>301/321-01 Casas de funçao</option>
  										<option>301/321-02 Casas de hospedes/sociais</option>
@@ -101,7 +101,7 @@
 							    			<td class = "leftTableContent"> {{element.dataElement.name}} </td>
                         <td ng-hide = 'reportsCtrl.isEditing()'> {{selectedReportDataValues[element.dataElement.id]}} </td>
                         <td ng-show = 'reportsCtrl.isEditing()'>
-                          <textarea ng-show="!element.dataElement.optionSet" class='boxForm'ng-model="reportForm[element.dataElement.id]" style='resize:vertical;' rows="2"></textarea> 
+                          <textarea ng-show="!element.dataElement.optionSet" class='boxForm'ng-model="reportForm[element.dataElement.id]" style='resize:vertical;' rows="2"></textarea>
                           <select ng-show="element.dataElement.optionSet" class='boxForm' ng-model="reportForm[element.dataElement.id]"><option ng-repeat = "option in element.dataElement.optionSet.options">{{option}}</option> </select>
                         </td>
 					        			</tr>

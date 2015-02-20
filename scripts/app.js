@@ -8,7 +8,7 @@ var app = angular.module('infrastructureInventory', ['hiiDirectives',
     'hiiServices']);
 
 app.config(function($translateProvider, $routeProvider) {
-    
+
     $routeProvider.when('/list', {
         templateUrl:'views/list-page.html',
         controller: 'listController',
@@ -36,7 +36,7 @@ app.config(function($translateProvider, $routeProvider) {
     })
     .otherwise({
         redirectTo : '/list'
-    });  
+    });
 
     //translation module settings
     $translateProvider.useStaticFilesLoader({
@@ -46,6 +46,11 @@ app.config(function($translateProvider, $routeProvider) {
     $translateProvider.preferredLanguage('en');
 });
 
-
-
-
+app.filter('nohii', function() {
+  return function(input) {
+    input = input || '';
+    var out = "";
+    out = input.replace('hii-','');
+    return out;
+  };
+})

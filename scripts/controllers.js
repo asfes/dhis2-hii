@@ -138,9 +138,9 @@ hiiControllers.controller('basicInfoController', function($scope, $timeout, $loc
 
     this.init = function() {
         //this values are dependant to the order & fields used in the program
-        $scope.optionSetFields=[9,12,13,14,15];
+        $scope.optionSetFields=[9,12,13,14,15,16];
         $scope.numUsers=3;
-        $scope.firstUsrField=16;
+        $scope.firstUsrField=17;
         ///////////////////////////////////////////////////
         $scope.lastUsrField=$scope.firstUsrField+$scope.numUsers;
         $scope.imageField=$scope.lastUsrField + $scope.numUsers;
