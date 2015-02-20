@@ -22,7 +22,7 @@ hiiServices.factory('dhis2APIService', function($http){
 
       getTrackedEntitiesByProgram : function(programId, orgunit, oumode) {
         var promise  = $http.get('/api/trackedEntityInstances.json?ou=' + orgunit
-          + '&ouMode=' + oumode +'&program='+ programId).then(function(response){
+          + '&ouMode=' + oumode +'&program='+ programId + '&skipPaging=true').then(function(response){
           var info = {tableHeaders:response.data.headers,tableContents:response.data.rows};
           return info;
         });

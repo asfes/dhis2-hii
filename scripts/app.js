@@ -53,4 +53,10 @@ app.filter('nohii', function() {
     out = input.replace('hii-','');
     return out;
   };
-})
+});
+
+app.filter('slice', function() {
+  return function(arr, start, end) {
+    return (arr || []).slice(start, end);
+  };
+});

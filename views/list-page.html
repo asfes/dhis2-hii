@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tbody id="list">
-      <tr class = 'listRow' ng-repeat = "urbanization in complexList.tableContents">
+      <tr class = 'listRow' ng-repeat = "urbanization in complexList.tableContents |slice:minlimit:maxlimit">
         <td class='text-column' ng-click="listCtrl.gotoBasicInfoPanel($index)">{{urbanization[5]}}</td>
         <td></td>
         <td ng-hide='complexList.tableContents.length==0 || isGuest()'> <img ng-click ="listCtrl.deleteComplex($index)" src ='/images/delete.png' width = '20px' height = '20px'></td>
@@ -25,4 +25,19 @@
       <tr ng-show ='isComplexOrgunit && complexList.tableContents.length==0 && !isGuest()'> <td> <button type="button" ng-click='listCtrl.createComplex()'>{{'add_new_complex'| translate}}</button> </td></tr>
     </tbody>
   </table>
+  <nav>
+  <ul class="pagination" ng-show='numPages!=0'>
+    <li>
+      <a href="" aria-label="Previous" ng-click ="changePage(page-1)">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li ng-class="{'active': $index+1 == page }"ng-repeat='number in getNumber(numPages) track by $index' ng-click='changePage($index+1)'><a href="">{{$index+1}}</a></li>
+    <li>
+      <a href="" aria-label="Next" ng-click ="changePage(page+1)">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 </div>

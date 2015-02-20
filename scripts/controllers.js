@@ -40,6 +40,11 @@ hiiControllers.controller('mainController', function($scope, $translate, dhis2AP
 
 hiiControllers.controller('listController', function($scope, $location, $translate, $interval, $filter, dhis2APIService) {
 	this.init = function() {
+        $scope.numPages=0;
+        $scope.pageSize=20;
+        $scope.maxlimit=0;
+        $scope.minlimit=0;
+        $scope.page=1;
         $scope.orderInverse = false;
         $scope.isComplexOrgunit = false;
 	    $scope.complexList={};
@@ -50,21 +55,38 @@ hiiControllers.controller('listController', function($scope, $location, $transla
             if(sessionStorage.ouSelected != $scope.selectedOrgUnit) {
                 $scope.selectedOrgUnit = sessionStorage.ouSelected;
                 $scope.loadingList = true;
+                $scope.numPages=0;
             }
         }, 400);
 
 	    //watch for changes in the selected orgunit and filter the content
 	    $scope.$watch('selectedOrgUnit', function() {
-       		if($scope.selectedOrgUnit && $scope.complexProgramData.id) $scope.fillList();
+       		if($scope.selectedOrgUnit && $scope.complexProgramData) $scope.fillList();
    		});
 	};
 
+  $scope.changePage = function(page) {
+    if(page>=1 && page<=$scope.numPages) {
+      $scope.page = page;
+      $scope.maxlimit = $scope.page*$scope.pageSize;
+      $scope.minlimit = $scope.maxlimit - $scope.pageSize;
+    }
+  };
+
+  $scope.getNumber = function(num) {
+    return new Array(num);
+  };
+
 	$scope.fillList =function() {
 		//we fll the list with the programs of the childs of the orgunit selected
-		dhis2APIService.getTrackedEntitiesByProgram($scope.complexProgramData.id,
+    dhis2APIService.getTrackedEntitiesByProgram($scope.complexProgramData.id,
 		$scope.selectedOrgUnit.substr(1,$scope.selectedOrgUnit.length-2), 'DESCENDANTS').then(function(dat){
 	        $scope.complexList = dat;
-            if($scope.complexList.length != 0) $scope.sortList();
+          if($scope.complexList.length != 0) {
+            $scope.sortList();
+            $scope.numPages = Math.ceil($scope.complexList.tableContents.length/$scope.pageSize);
+            $scope.changePage(1);
+          }
 	    });
 	    //we check if the organization unit selected have children to show or hide the button of creation and for saving its name
 	    dhis2APIService.getOrganizationUnitInfo($scope.selectedOrgUnit).then(function(dat) {
