@@ -172,7 +172,7 @@ hiiControllers.controller('basicInfoController', function($scope, $timeout, $loc
         $scope.imagePath = '';
         $scope.isLoading = true;
         $scope.isSending = false;
-        $scope.editing=false;
+        $scope.editing= 0;
         $scope.editForm = [];
         $scope.imageEditing = false;
         $scope.users = [];
@@ -228,15 +228,15 @@ hiiControllers.controller('basicInfoController', function($scope, $timeout, $loc
             }
             else {
                 $scope.getTableContents();
-                $scope.editing = false;
+                $scope.editing = 0;
                 $scope.imageEditing = false;
             }
             $scope.isSending = false;
         });
     };
 
-    this.isEditing = function() {
-        return $scope.editing;
+    this.isEditing = function(i) {
+        return $scope.editing == i;
     };
 
     this.gotoProfile = function(i) {
@@ -252,29 +252,30 @@ hiiControllers.controller('basicInfoController', function($scope, $timeout, $loc
       });
     };
 
-    this.setEditing = function(edit){
-        if($scope.users.length == 0) {
+    this.setEditing = function(edit, nfield){
+        if($scope.users.length == 0 && nfield==3) {
             dhis2APIService.getUsers().then(function(dat){
                 $scope.users = dat;
             });
         }
-        if($scope.optionSets.length==0)  {
+        if($scope.optionSets.length==0 && nfield !=3)  {
             $scope.getOptionSets(0);
         }
-        $scope.editing = edit;
         showError = false;
         $scope.editForm=[];
-        if($scope.editing) {
+        if(edit) {
+            $scope.editing = nfield;
             $scope.imageEditing = false;
             angular.copy($scope.complexInfo.tableContents[0], $scope.editForm);
         }
+        else $scope.editing = 0;
     };
 
     this.editImage = function(edit) {
         $scope.imageEditing = edit;
         if(edit) {
             angular.copy($scope.complexInfo.tableContents[0], $scope.editForm);
-            $scope.editing = false;
+            $scope.editing = 0;
         }
     };
 
@@ -708,6 +709,7 @@ hiiControllers.controller('buildingReportController', function($scope, $timeout,
 
 hiiControllers.controller('settingsController', function($rootScope, $scope, $filter, dhis2FrontEndService, dhis2APIService, metadataGetter){
     this.init = function() {
+        $scope.loadingMetadata = false;
         $scope.entitySelected = -1; //0 sanitary complex, 1 building
         $scope.isAddingFields = false;
         $scope.fieldSelected = -1;
@@ -720,11 +722,20 @@ hiiControllers.controller('settingsController', function($rootScope, $scope, $fi
     };
 
     this.installMetadata = function() {
-        metadataGetter.getUserRoles().then(function(dat){console.dir(dat)});
-        metadataGetter.getOptionSets().then(function(dat){console.dir(dat)});
-        metadataGetter.getTE().then(function(dat){console.dir(dat)});
-        metadataGetter.getTEAttributes().then(function(dat){console.dir});
-        metadataGetter.getPrograms().then(function(dat){console.dir(dat)});
+      $scope.loadingMetadata = true;
+        metadataGetter.getUserRoles().then(function(dat1){
+          dhis2APIService.importUserRoles(dat1).then(function(res1){
+            metadataGetter.getOptionSets().then(function(dat2){
+            dhis2APIService.importOptionSets(dat2).then(function(res2){
+              metadataGetter.getTE().then(function(dat3){
+              dhis2APIService.importTE(dat3).then(function(res3){
+                metadataGetter.getTEAttributes().then(function(dat4){
+                dhis2APIService.importTEAttributes(dat4).then(function(res4){
+                  metadataGetter.getPrograms().then(function(dat5){
+                  dhis2APIService.importPrograms(dat5).then(function(res5){
+                    alert("Metadata installed sucessfully!");
+                    $scope.loadingMetadata = false;
+                  });});});});});});});});});});
     };
 
     this.setEntity = function(n) {

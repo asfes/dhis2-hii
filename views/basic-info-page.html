@@ -14,7 +14,7 @@
 			<div class='row'>
 				<div class="col-sm-4">
 					<div class='info-box box-small'>
-						<p class="header"> {{'general_info'| translate}} <img ng-hide ='isGuest()' src = "img/edit2.png" height="18" width="18" style="float: right;cursor:pointer;" ng-click= "basicInfoCtrl.setEditing(!basicInfoCtrl.isEditing())"></img></p>
+						<p class="header"> {{'general_info'| translate}} <img ng-hide ='isGuest()' src = "img/edit2.png" height="18" width="18" style="float: right;cursor:pointer;" ng-click= "basicInfoCtrl.setEditing(!basicInfoCtrl.isEditing(1),1)"></img></p>
 						<div class="contentTable">
 							<table>
 								<form novalidate>
@@ -37,52 +37,63 @@
 							   				</td>
 							   			</tr>
 							        	<tr  ng-repeat = "i in [6,7,8,9,10,11]">
-									    	<td class= "leftTableContent"> {{complexInfo.tableHeaders[i].column|nohii}} </td> <td ng-hide='basicInfoCtrl.isEditing()'> {{complexInfo.tableContents[0][i]}}</td> <td ng-show = 'basicInfoCtrl.isEditing()'> <input ng-show ='i!=8 && i!=9 && i!=11' type ='text' class='boxForm' ng-model="editForm[i]"> </input> <select ng-show="i==8"  ng-model="editForm[i]" class='boxForm' ><option value ='true'>{{'yes'| translate}}</option> <option value='false'>{{'no'| translate}}</option></select>
+									    	<td class= "leftTableContent"> {{complexInfo.tableHeaders[i].column|nohii}} </td> <td ng-hide='basicInfoCtrl.isEditing(1)'> {{complexInfo.tableContents[0][i]}}</td> <td ng-show = 'basicInfoCtrl.isEditing(1)'> <input ng-show ='i!=8 && i!=9 && i!=11' type ='text' class='boxForm' ng-model="editForm[i]"> </input> <select ng-show="i==8"  ng-model="editForm[i]" class='boxForm' ><option value ='true'>{{'yes'| translate}}</option> <option value='false'>{{'no'| translate}}</option></select>
 									    	<select ng-show="i==9" ng-model="editForm[i]" class='boxForm'><option ng-repeat='optionSet in optionSets[i].optionSet.options' value ='{{optionSet}}'>{{optionSet}}</option></select>
 									    	<textarea ng-show="i==11" ng-model="editForm[i]" class='boxForm' style='resize:vertical;' rows="2"></textarea>
 									    </td>
 							        	</tr>
+                        <tr ng-show = 'basicInfoCtrl.isEditing(1)'> <td></td> <td style ="text-align:right">
+                          <img ng-show="isSending" src="/images/ui-anim_basic.gif">
+                          <input ng-hide="isSending" type ='button'  value = "{{'cancel' | translate}}" style="overflow-y:hidden;margin-right:5px;" ng-click = "basicInfoCtrl.setEditing(false,0)"> </input>
+                          <input ng-hide="isSending" type ='button'  value = "{{'send' | translate}}" style="overflow-y:hidden;margin-right:5px;" ng-click = "basicInfoCtrl.send()"> </input>
+                        </td> </tr>
 						    		</tbody>
 					    		</form>
 							</table>
 						</div>
 					</div>
           <div class='info-box box-small'>
-            <p class="header"> {{'infrastructures'| translate}} <img ng-hide ='isGuest()' src = "img/edit2.png" height="18" width="18" style="float: right;cursor:pointer;" ng-click= "basicInfoCtrl.setEditing(!basicInfoCtrl.isEditing())"></img></p>
+            <p class="header"> {{'infrastructures'| translate}} <img ng-hide ='isGuest()' src = "img/edit2.png" height="18" width="18" style="float: right;cursor:pointer;" ng-click= "basicInfoCtrl.setEditing(!basicInfoCtrl.isEditing(2),2)"></img></p>
             <div class="contentTable">
               <table>
                 <form novalidate>
                      <tbody>
                         <tr  ng-repeat = "i in [12,13,14,15,16]">
                           <td class= "leftTableContent">  {{complexInfo.tableHeaders[i].column|nohii}}  </td>
-                          <td ng-hide='basicInfoCtrl.isEditing()'> {{complexInfo.tableContents[0][i]}}</td>
-                          <td ng-show = 'basicInfoCtrl.isEditing()'>
+                          <td ng-hide='basicInfoCtrl.isEditing(2)'> {{complexInfo.tableContents[0][i]}}</td>
+                          <td ng-show = 'basicInfoCtrl.isEditing(2)'>
                             <select ng-model="editForm[i]" class='boxForm'><option ng-repeat='optionSet in optionSets[i].optionSet.options'>{{optionSet}}</option></select>
                             </select>
                           </td>
                         </tr>
+                        <tr ng-show = 'basicInfoCtrl.isEditing(2)'> <td></td> <td style ="text-align:right">
+                          <img ng-show="isSending" src="/images/ui-anim_basic.gif">
+                          <input ng-hide="isSending" type ='button'  value = "{{'cancel' | translate}}" style="overflow-y:hidden;margin-right:5px;" ng-click = "basicInfoCtrl.setEditing(false,0)"> </input>
+                          <input ng-hide="isSending" type ='button'  value = "{{'send' | translate}}" style="overflow-y:hidden;margin-right:5px;" ng-click = "basicInfoCtrl.send()"> </input>
+                        </td> </tr>
                     </tbody>
                   </form>
               </table>
             </div>
           </div>
 					<div class='info-box box-small'>
-						<p class="header"> {{'responsibles'| translate}} <img ng-hide ='isGuest()' src = "img/edit2.png" height="18" width="18" style="float: right;cursor:pointer;" ng-click= "basicInfoCtrl.setEditing(!basicInfoCtrl.isEditing())"></img></p>
+						<p class="header"> {{'responsibles'| translate}} <img ng-hide ='isGuest()' src = "img/edit2.png" height="18" width="18" style="float: right;cursor:pointer;" ng-click= "basicInfoCtrl.setEditing(!basicInfoCtrl.isEditing(3),3)"></img></p>
 						<div class="contentTable">
 							<table>
 								<form novalidate>
 							   		<tbody>
 							        	<tr  ng-repeat = "i in [17,18,19]">
-									    	<td class= "leftTableContent">  {{complexInfo.tableHeaders[i].column|nohii}}  </td> <td ng-hide='basicInfoCtrl.isEditing()'> <a href ='' ng-click = 'basicInfoCtrl.gotoProfile(i)'>{{complexInfo.tableContents[0][i]}} </a></td> <td ng-show = 'basicInfoCtrl.isEditing()'>  <input type='text' list="users" class='boxForm' ng-model="editForm[i]">
+									    	<td class= "leftTableContent">  {{complexInfo.tableHeaders[i].column|nohii}}  </td> <td ng-hide='basicInfoCtrl.isEditing(3)'> <a href ='' ng-click = 'basicInfoCtrl.gotoProfile(i)'>{{complexInfo.tableContents[0][i]}} </a></td> <td ng-show = 'basicInfoCtrl.isEditing(3)'>  <input type='text' list="users" class='boxForm' ng-model="editForm[i]">
 											  <datalist id="users">
 											    <option ng-repeat='user in users' value='{{user.name}}'>
 											  </datalist>
 									    	</td>
 							        	</tr>
-							        	<tr ng-show = 'basicInfoCtrl.isEditing()'> <td></td> <td style ="text-align:right">
+							        	<tr ng-show = 'basicInfoCtrl.isEditing(3)'> <td></td> <td style ="text-align:right">
 							        		<img ng-show="isSending" src="/images/ui-anim_basic.gif">
-							        		<input ng-hide="isSending" type ='button'  value = "Send" style="overflow-y:hidden;margin-right:5px;" ng-click = "basicInfoCtrl.send()"> </input>
-							        	</td> <tr>
+                          <input ng-hide="isSending" type ='button'  value = "{{'cancel' | translate}}" style="overflow-y:hidden;margin-right:5px;" ng-click = "basicInfoCtrl.setEditing(false,0)"> </input>
+                          <input ng-hide="isSending" type ='button'  value = "{{'send' | translate}}" style="overflow-y:hidden;margin-right:5px;" ng-click = "basicInfoCtrl.send()"> </input>
+							        	</td> </tr>
 						    		</tbody>
 					    		</form>
 							</table>

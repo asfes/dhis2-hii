@@ -197,6 +197,41 @@ hiiServices.factory('dhis2APIService', function($http){
         });
         return promise;
       },
+
+      importTEAttributes: function(data) {
+        var promise = $http.post('/api/trackedEntityAttributes/', JSON.stringify(data)).then(function(response){
+          console.dir(response)
+        }, function(err) { console.dir(err)});
+        return promise;
+      },
+
+      importTE: function(data) {
+        var promise = $http.post('/api/trackedEntities/', JSON.stringify(data)).then(function(response){
+          console.dir(response)
+        }, function(err) { console.dir(err)});
+        return promise;
+      },
+
+      importOptionSets: function(data) {
+        var promise = $http.post('/api/optionSets/', JSON.stringify(data)).then(function(response){
+          console.dir(response)
+        }, function(err) { console.dir(err)});
+        return promise;
+      },
+
+      importUserRoles:function(data) {
+        var promise = $http.post('/api/userRoles/', JSON.stringify(data)).then(function(response){
+          console.dir(response)
+        }, function(err) { console.dir(err)});
+        return promise;
+      },
+
+      importPrograms:function() {
+        var promise = $http.post('/api/programs/', JSON.stringify(data)).then(function(response){
+          console.dir(response)
+        }, function(err) { console.dir(err)});
+        return promise;
+      }
   };
 
   return serviceFactory;

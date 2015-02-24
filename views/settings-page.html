@@ -4,7 +4,8 @@
    	<h4> &#8226; {{'metadata_title' | translate}}</h4>
    	<div style = "padding-left:10px">
 	   	<p id = "pSettings">{{'settings_text'| translate}}</p>
-	    <button type="button" ng-click = "settingsCtrl.installMetadata()">{{'settings_button'| translate}}</button>
+      <img ng-show ="loadingMetadata" src ='/images/ajax-loader-circle.gif' >
+	    <button ng-hide ="loadingMetadata" type="button" ng-click = "settingsCtrl.installMetadata()">{{'settings_button'| translate}}</button>
 	</div>
 	<br><br>
     <h4> &#8226; {{'manage_fields' | translate}}

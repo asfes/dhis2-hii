@@ -45,7 +45,8 @@
 						        	</tr>
 						        	<tr ng-show = 'buildingsCtrl.isEditing()'> <td></td> <td style ="text-align:right">
 						        		<img ng-show="isSending" src="/images/ui-anim_basic.gif">
-						        		<input ng-hide='isSending' type ='button'  value = "Send" style="overflow-y:hidden;margin-right:5px;" ng-click = "buildingsCtrl.send()"> </input>
+                        <input ng-hide="isSending" type ='button'  value = "{{'cancel' | translate}}" style="overflow-y:hidden;margin-right:5px;" ng-click = "buildingsCtrl.setEditing(false)"> </input>
+						        		<input ng-hide='isSending' type ='button'  value = "{{'send' | translate}}" style="overflow-y:hidden;margin-right:5px;" ng-click = "buildingsCtrl.send()"> </input>
 						        	</td> <tr>
 					    		</tbody>
 							</form>
